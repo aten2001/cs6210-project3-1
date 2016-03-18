@@ -30,28 +30,27 @@ GEN_CPP_OBJECTS = \
     $(BUILD_DIR)/hello_world_constants.o \
     $(BUILD_DIR)/hello_world_types.o \
 
-SAM_CPPFLAGS = $(BOOST_CPPFLAGS) $(LIBEVENT_CPPFLAGS) -Igen-cpp
-AM_CXXFLAGS = -Wall -Wextra -pedantic
-AM_LDFLAGS = $(BOOST_LDFLAGS) $(LIBEVENT_LDFLAGS)
+CPPFLAGS = -O3
+LDFLAGS = -lthrift -lboost_program_options
 
 .PHONY: all clean
 
 all: $(TARGETS)
 
 HelloWorldServer: $(SERVER_OBJECTS) $(GEN_CPP_OBJECTS)
-	g++ -o $@ $^ -lthrift
+	g++ -o $@ $^ $(LDFLAGS)
 
 HelloWorldClient: $(CLIENT_OBJECTS) $(GEN_CPP_OBJECTS)
-	g++ -o $@ $^ -lthrift
+	g++ -o $@ $^ $(LDFLAGS)
 
 $(GEN_CPP_SOURCES) : hello_world.thrift
 	thrift --gen cpp -r $<
 
 $(BUILD_DIR)/%.o : %.cpp $(GEN_CPP_SOURCES)
-	g++ -o $@ -c $<
+	g++ -o $@ -c $< $(CPPFLAGS)
 
 $(BUILD_DIR)/%.o : gen-cpp/%.cpp $(GEN_CPP_SOURCES)
-	g++ -o $@ -c $<
+	g++ -o $@ -c $< $(CPPFLAGS)
 
 $(CLIENT_OBJECTS) : | $(BUILD_DIR)
 $(GEN_CPP_OBJECTS) : | $(BUILD_DIR)
