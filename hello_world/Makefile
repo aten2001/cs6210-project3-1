@@ -53,6 +53,7 @@ $(BUILD_DIR)/%.o : gen-cpp/%.cpp $(GEN_CPP_SOURCES)
 	g++ -o $@ -c $< $(CPPFLAGS)
 
 $(CLIENT_OBJECTS) : | $(BUILD_DIR)
+$(SERVER_OBJECTS) : | $(BUILD_DIR)
 $(GEN_CPP_OBJECTS) : | $(BUILD_DIR)
 
 $(BUILD_DIR):
