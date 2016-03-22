@@ -47,6 +47,7 @@ private:
   
   bool get_url_cached(std::string& _return, const std::string& url) {
     if (m_web_cache.is_url_cached(url)) {
+      std::cout << "get_url_cached: " << url << std::endl;
       _return = m_web_cache.get_url_cached(url);
       return true;
     }
