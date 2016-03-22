@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
   try {
     transport->open();
     std::string response;
-    std::cout << "Calling RPC method get_url" << std::endl;
+    std::cout << "Calling RPC method get_url for url " << url << std::endl;
     client.get_url(response, url);
     std::cout << response << std::endl;
     std::cout << "Finished!" << std::endl;
