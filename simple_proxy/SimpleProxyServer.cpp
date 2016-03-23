@@ -6,7 +6,7 @@
 #include <boost/program_options.hpp>
 #include <curl/curl.h>
 
-#include "SimpleCache.h"
+#include "CacheManager.h"
 
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
@@ -101,7 +101,7 @@ private:
   }
 
 private:
-  SimpleCache m_web_cache;
+  CacheManager m_web_cache;
 };
 
 int main(int argc, char** argv) {

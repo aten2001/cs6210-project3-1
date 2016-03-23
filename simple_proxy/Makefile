@@ -1,11 +1,12 @@
 BUILD_DIR := build
 
 SERVER_SOURCES := \
-	SimpleProxyServer.cpp SimpleCache.cpp
+	SimpleProxyServer.cpp CacheManager.cpp
 
 SERVER_OBJECTS := \
 	$(BUILD_DIR)/SimpleProxyServer.o \
-	$(BUILD_DIR)/SimpleCache.o
+	$(BUILD_DIR)/CacheManager.o \
+	$(BUILD_DIR)/WebCache.o
 
 CLIENT_SOURCES := \
 	SimpleProxyClient.cpp
@@ -25,7 +26,7 @@ GEN_CPP_SOURCES = \
 	gen-cpp/simple_proxy_types.cpp \
 	gen-cpp/simple_proxy_types.h \
 	gen-cpp/SimpleProxy_server.skeleton.cpp \
-	SimpleCache.cpp
+	CacheManager.cpp WebCache.cpp
 
 GEN_CPP_OBJECTS = \
     $(BUILD_DIR)/SimpleProxy.o \

@@ -7,12 +7,13 @@
 #include <functional>
 
 #include "CacheRepPolicy.h"
+#include "WebCache.h"
 
-class SimpleCache {
+class CacheManager {
 public:
-  SimpleCache() {}
-  SimpleCache(CacheRepPolicy &pol, size_t cache_size);
-  ~SimpleCache() {}
+  CacheManager() {}
+  CacheManager(CacheRepPolicy &pol, size_t cache_size);
+  ~CacheManager() {}
 
   bool is_url_cached(const std::string& url);
   std::string get_url_cached(const std::string& url);
@@ -23,7 +24,7 @@ private:
   size_t         m_max_cache_size;
   size_t         m_cur_cache_size;	
   CacheRepPolicy m_rep_policy;
-  std::unordered_map<size_t, std::string> m_cache;
+  WebCache       m_cache;
 };
 
 #endif /* _SIMPLE_CACHE_H */
