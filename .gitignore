@@ -31,5 +31,8 @@
 # Debug files
 *.dSYM/
 
+# CLion personal settings
+.idea/
+
 # Thrift Generated Directories
 gen-cpp/
