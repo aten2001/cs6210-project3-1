@@ -31,13 +31,14 @@ const std::string& WebPageCache::GetWebPage(const std::string& url) {
   // Identify if there is an entry whose key matches the URL
   for (std::multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
        entry != entries_range.second; ++entry) {
+    CacheEntry& cache_entry = entry->second;
     if (entry->second.GetKey() == url) {
       if (!warmup_)
         cache_hits_++;
     #if DEBUG
       std::cout << "Cache Hit - Returning Page: " << url << std::endl;
     #endif
-      repl_policy_->Touch(url);
+      repl_policy_->Touch(entry->second);
       return entry->second.GetData();
     }
   }
@@ -57,9 +58,11 @@ const std::string& WebPageCache::GetWebPage(const std::string& url) {
 #if DEBUG
   std::cout << "Inserting Page: " << url << std::endl;
 #endif
-  repl_policy_->Insert(url);
+  CacheEntry entry(url, content);
+
+  repl_policy_->Insert(entry);
   current_size_ += content.size();
-  cache.insert(std::pair<size_t, CacheEntry>(hash_val, CacheEntry(url, content)));
+  cache.insert(std::pair<size_t, CacheEntry>(hash_val, entry));
 
   if (!warmup_)
     --warmup_;

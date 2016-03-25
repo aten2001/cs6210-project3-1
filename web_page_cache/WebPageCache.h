@@ -7,13 +7,15 @@
 
 class CacheEntry {
  public:
-  CacheEntry(std::string key, std::string data) : key_(key), data_(data) { }
+  CacheEntry(const std::string& key, const std::string& data) : key_(key), data_(data) { }
 
   ~CacheEntry() { }
 
   const std::string& GetKey() const { return key_; }
 
   const std::string& GetData() const { return data_; }
+
+  unsigned long GetSize() const { return data_.size(); }
 
  private:
   std::string key_;
@@ -32,8 +34,8 @@ class WebPageDownloader {
 class CacheReplPolicy {
  public:
   virtual ~CacheReplPolicy() {};
-  virtual void Insert(std::string key) = 0;
-  virtual void Touch(std::string key) = 0;
+  virtual void Insert(const CacheEntry& entry) = 0;
+  virtual void Touch(const CacheEntry& entry) = 0;
   virtual std::string RemoveReplacement() = 0;
   virtual void Reset() = 0;
 };

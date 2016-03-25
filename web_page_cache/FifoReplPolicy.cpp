@@ -1,10 +1,10 @@
 #include "FifoReplPolicy.h"
 
-void FifoReplPolicy::Insert(std::string key) {
-  fifo.push(key);
+void FifoReplPolicy::Insert(const CacheEntry& entry) {
+  fifo.push(entry.GetKey());
 }
 
-void FifoReplPolicy::Touch(std::string key) {
+void FifoReplPolicy::Touch(const CacheEntry& entry) {
 
 }
 

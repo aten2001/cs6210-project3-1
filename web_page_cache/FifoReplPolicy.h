@@ -9,8 +9,8 @@ class FifoReplPolicy : public CacheReplPolicy {
   FifoReplPolicy() {}
   ~FifoReplPolicy() {}
 
-  void Insert(std::string key);
-  void Touch(std::string key);
+  void Insert(const CacheEntry& entry);
+  void Touch(const CacheEntry& entry);
   std::string RemoveReplacement();
   void Reset();
 
