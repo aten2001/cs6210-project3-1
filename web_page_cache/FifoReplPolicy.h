@@ -15,7 +15,7 @@ class FifoReplPolicy : public CacheReplPolicy {
   void Reset();
 
  private:
-  std::queue<std::string> fifo;
+  std::queue<std::string> fifo_;
 };
 
 #endif //PROJECT3_FIFOREPLPOLICY_H
