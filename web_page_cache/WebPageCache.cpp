@@ -1,5 +1,7 @@
 #include "WebPageCache.h"
 #include "FifoReplPolicy.h"
+#include "RandReplPolicy.h"
+#include "MaxSizeReplPolicy.h"
 #include <curl/curl.h>
 #include <assert.h>
 
@@ -7,7 +9,11 @@ WebPageCache::WebPageCache(int32_t max_size, const std::string& repl_policy, int
         : max_size_(max_size), warmup_(warmup), current_size_(0),
           cache_hits_(0), num_accesses_(0) {
   if (repl_policy == "FIFO") {
-    repl_policy_  = new FifoReplPolicy();
+    repl_policy_ = new FifoReplPolicy();
+  } else if (repl_policy == "MAXS") {
+    repl_policy_ = new MaxSizeReplPolicy();
+  } else if (repl_policy == "RAND") {
+    repl_policy_ = new RandReplPolicy();
   } else {
     std::cerr << "Invalid Replacement Policy: " << repl_policy;
     assert(0);
@@ -32,19 +38,24 @@ const std::string& WebPageCache::GetWebPage(const std::string& url) {
   for (std::multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
        entry != entries_range.second; ++entry) {
     CacheEntry& cache_entry = entry->second;
-    if (entry->second.GetKey() == url) {
+    if (entry->second.getKey() == url) {
       if (!warmup_)
         cache_hits_++;
     #if DEBUG
       std::cout << "Cache Hit - Returning Page: " << url << std::endl;
     #endif
       repl_policy_->Touch(entry->second);
-      return entry->second.GetData();
+      return entry->second.getData();
     }
   }
 
   std::string content;
   WebPageDownloader::DownloadWebPage(url, content);
+
+  if (content.size() > max_size_) {
+    std::cerr << "Content too large for cache" << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
   while ((current_size_ + content.size()) > max_size_) {
     // Cache too large, need to replace data until  within size requirements
@@ -78,9 +89,9 @@ void WebPageCache::RemoveWebPage(const std::string& url) {
   // Identify if there is an entry whose key matches the URL
   for (std::multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
        entry != entries_range.second; ++entry) {
-    if (entry->second.GetKey() == url) {
+    if (entry->second.getKey() == url) {
       // Remove the cache entry and adjust the new cache size
-      current_size_ -= entry->second.GetData().size();
+      current_size_ -= entry->second.getData().size();
       cache.erase(entry);
       return;
     }

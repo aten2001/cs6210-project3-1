@@ -1,7 +1,7 @@
 #include "FifoReplPolicy.h"
 
 void FifoReplPolicy::Insert(const CacheEntry& entry) {
-  fifo_.push(entry.GetKey());
+  fifo_.push(entry.getKey());
 }
 
 void FifoReplPolicy::Touch(const CacheEntry& entry) {

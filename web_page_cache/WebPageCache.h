@@ -11,11 +11,11 @@ class CacheEntry {
 
   ~CacheEntry() { }
 
-  const std::string& GetKey() const { return key_; }
+  const std::string& getKey() const { return key_; }
 
-  const std::string& GetData() const { return data_; }
+  const std::string& getData() const { return data_; }
 
-  unsigned long GetSize() const { return data_.size(); }
+  unsigned long getSize() const { return data_.size(); }
 
  private:
   std::string key_;
