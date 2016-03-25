@@ -33,11 +33,16 @@ GEN_CPP_OBJECTS = \
 
 WEB_PAGE_CACHE_SOURCES = \
     $(PROJECT_ROOT_DIR)/web_page_cache/WebPageCache.cpp \
-    $(PROJECT_ROOT_DIR)/web_page_cache/FifoReplPolicy.cpp
+    $(PROJECT_ROOT_DIR)/web_page_cache/RandReplPolicy.cpp \
+    $(PROJECT_ROOT_DIR)/web_page_cache/FifoReplPolicy.cpp \
+    $(PROJECT_ROOT_DIR)/web_page_cache/MaxSizeReplPolicy.cpp
+
 
 WEB_PAGE_CACHE_OBJECTS = \
     $(BUILD_DIR)/WebPageCache.o \
-    $(BUILD_DIR)/FifoReplPolicy.o
+    $(BUILD_DIR)/RandReplPolicy.o \
+    $(BUILD_DIR)/FifoReplPolicy.o \
+    $(BUILD_DIR)/MaxSizeReplPolicy.o
 
 CPPFLAGS = -O3 -std=c++11
 LDFLAGS = -lthrift -lboost_program_options
