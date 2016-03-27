@@ -24,7 +24,7 @@ class CacheEntry {
 
 class WebPageDownloader {
  public:
-  static bool DownloadWebPage(const std::string& url, std::string& content);
+  bool DownloadWebPage(const std::string& url, std::string& content);
 
  private:
   static size_t WriteWebPageCallback(char* buf, size_t size, size_t nmemb, void* up);
@@ -67,6 +67,7 @@ class WebPageCache {
   std::hash<std::string> hash_fn_;
   std::multimap<size_t, CacheEntry> cache;
   CacheReplPolicy* repl_policy_;
+  WebPageDownloader downloader_;
 
  private:
   void RemoveWebPage(const std::string& url);
