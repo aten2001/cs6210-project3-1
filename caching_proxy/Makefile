@@ -44,7 +44,7 @@ WEB_PAGE_CACHE_OBJECTS = \
     $(BUILD_DIR)/FifoReplPolicy.o \
     $(BUILD_DIR)/MaxSizeReplPolicy.o
 
-CPPFLAGS = -O3 -std=c++11
+CPPFLAGS = -O0 -ggdb3 -std=c++11
 LDFLAGS = -lthrift -lboost_program_options
 CURL_LIBS = $(shell curl-config --libs)
 CURL_CFLAGS = $(shell curl-config --cflags)
@@ -54,25 +54,25 @@ CURL_CFLAGS = $(shell curl-config --cflags)
 all: $(TARGETS)
 
 CachingProxyServer: $(SERVER_OBJECTS) $(GEN_CPP_OBJECTS) $(WEB_PAGE_CACHE_OBJECTS)
-	g++ -o $@ $^ $(LDFLAGS) $(CURL_LIBS)
+	$(CXX) -o $@ $^ $(LDFLAGS) $(CURL_LIBS)
 
 $(BUILD_DIR)/CachingProxyServer.o : CachingProxyServer.cpp $(GEN_CPP_SOURCES)
-	g++ -o $@ -c $< $(CPPFLAGS) $(CURL_CFLAGS)
+	$(CXX) -o $@ -c $< $(CPPFLAGS) $(CURL_CFLAGS)
 
 CachingProxyClient: $(CLIENT_OBJECTS) $(GEN_CPP_OBJECTS)
-	g++ -o $@ $^ $(LDFLAGS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(GEN_CPP_SOURCES) : caching_proxy.thrift
 	thrift --gen cpp -r $<
 
 $(WEB_PAGE_CACHE_OBJECTS): $(BUILD_DIR)/%.o : $(PROJECT_ROOT_DIR)/web_page_cache/%.cpp
-	g++ -o $@ -c $< $(CPPFLAGS)
+	$(CXX) -o $@ -c $< $(CPPFLAGS)
 
 $(BUILD_DIR)/%.o : %.cpp $(GEN_CPP_SOURCES)
-	g++ -o $@ -c $< $(CPPFLAGS)
+	$(CXX) -o $@ -c $< $(CPPFLAGS)
 
 $(BUILD_DIR)/%.o : gen-cpp/%.cpp $(GEN_CPP_SOURCES)
-	g++ -o $@ -c $< $(CPPFLAGS)
+	$(CXX) -o $@ -c $< $(CPPFLAGS)
 
 
 

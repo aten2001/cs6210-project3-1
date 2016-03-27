@@ -24,7 +24,7 @@ WebPageCache::~WebPageCache() {
   delete repl_policy_;
 }
 
-const std::string& WebPageCache::GetWebPage(const std::string& url) {
+const std::string WebPageCache::GetWebPage(const std::string& url) {
   if (!warmup_)
     num_accesses_++;
 
@@ -77,6 +77,8 @@ const std::string& WebPageCache::GetWebPage(const std::string& url) {
 
   if (!warmup_)
     --warmup_;
+
+  return content;
 }
 
 void WebPageCache::RemoveWebPage(const std::string& url) {
@@ -147,5 +149,7 @@ bool WebPageDownloader::DownloadWebPage(const std::string& url, std::string& con
 
   /* we're done with libcurl, so clean it up */
   curl_global_cleanup();
+
+  return res == CURLE_OK;
 }
 

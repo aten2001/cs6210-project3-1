@@ -17,6 +17,9 @@ namespace po = boost::program_options;
 
 using namespace ::cachingproxy;
 
+#define KB(x) ((x) << 10)
+#define MB(x) ((x) << 20)
+
 size_t WriteStringCallback(char* buf, size_t size, size_t nmemb, void* up) {
   std::string* str = (std::string*)up;
   str->reserve(str->size() + size * nmemb);
@@ -50,7 +53,7 @@ int main(int argc, char** argv) {
           ("help,h", "Produce help message")
           ("port,p", po::value<int>(&port)->default_value(9090), "Server Listening Port")
           ("repl_policy,r", po::value<std::string>(&repl_policy)->default_value("FIFO"), "Cache Replacement Policy")
-          ("cache_size,c", po::value<int>(&cache_size)->default_value(1024), "Cache Size (KB)")
+          ("cache_size,c", po::value<int>(&cache_size)->default_value(KB(1024)), "Cache Size (KB)")
           ("warmnup,w", po::value<int>(&warmup)->default_value(0), "Warmup Period")
           ;
 

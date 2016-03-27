@@ -45,7 +45,7 @@ class WebPageCache {
   WebPageCache(int32_t max_size, const std::string& repl_policy, int32_t warmup = 0);
 
   ~WebPageCache();
-  const std::string& GetWebPage(const std::string& url);
+  const std::string GetWebPage(const std::string& url);
 
   void PrintOccupancy() {
     std::cout << "Cache: " << cache.size() << " items, ";
@@ -72,7 +72,7 @@ class WebPageCache {
   void RemoveWebPage(const std::string& url);
 
   size_t get_hash(const std::string& str) {
-    hash_fn_(str);
+    return hash_fn_(str);
   }
 
 };
