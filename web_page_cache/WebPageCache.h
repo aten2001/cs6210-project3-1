@@ -42,14 +42,26 @@ class CacheReplPolicy {
 
 class WebPageCache {
  public:
-  WebPageCache(int32_t max_size, const std::string& repl_policy, int32_t warmup = 0);
+  WebPageCache(const std::string& repl_policy, int32_t max_size = 1024, int32_t warmup = 0);
 
   ~WebPageCache();
   const std::string GetWebPage(const std::string& url);
 
-  void PrintOccupancy() {
-    std::cout << "Cache: " << cache.size() << " items, ";
-    std::cout << (current_size_ / 1024) << "/" << (max_size_ / 1024) << "KB" << std::endl;
+
+  void SetCacheSize(int32_t max_size) {
+    max_size_ = max_size;
+  }
+
+  void Reset() {
+    cache.clear();
+    current_size_ = 0;
+    repl_policy_->Reset();
+    cache_hits_ = 0;
+    num_accesses_ = 0;
+  }
+
+  void SetWarmupPeriod(int32_t period) {
+    warmup_period_ = period;
   }
 
   double GetHitRate() {
@@ -58,12 +70,17 @@ class WebPageCache {
     return (double)cache_hits_ / (double)num_accesses_;
   }
 
+  void PrintOccupancy() {
+    std::cout << "Cache: " << cache.size() << " items, ";
+    std::cout << (current_size_ / 1024) << "/" << (max_size_ / 1024) << "KB" << std::endl;
+  }
+
  private:
   int32_t current_size_;
   int32_t max_size_;
   int32_t cache_hits_;
   int32_t num_accesses_;
-  int32_t warmup_;
+  int32_t warmup_period_;
   std::hash<std::string> hash_fn_;
   std::multimap<size_t, CacheEntry> cache;
   CacheReplPolicy* repl_policy_;

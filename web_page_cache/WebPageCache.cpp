@@ -8,8 +8,8 @@
 
 #define DEBUG 0
 
-WebPageCache::WebPageCache(int32_t max_size, const std::string& repl_policy, int32_t warmup)
-        : max_size_(max_size), warmup_(warmup), current_size_(0),
+WebPageCache::WebPageCache(const std::string& repl_policy, int32_t max_size, int32_t warmup)
+        : max_size_(max_size), warmup_period_(warmup), current_size_(0),
           cache_hits_(0), num_accesses_(0) {
   if (repl_policy == "FIFO") {
     repl_policy_ = new FifoReplPolicy();
@@ -30,7 +30,7 @@ WebPageCache::~WebPageCache() {
 }
 
 const std::string WebPageCache::GetWebPage(const std::string& url) {
-  if (!warmup_)
+  if (!warmup_period_)
     num_accesses_++;
 
   size_t hash_val = get_hash(url); // Hash the url
@@ -44,7 +44,7 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
        entry != entries_range.second; ++entry) {
     CacheEntry& cache_entry = entry->second;
     if (cache_entry.getKey() == url) {
-      if (!warmup_)
+      if (!warmup_period_)
         cache_hits_++;
     #if DEBUG
       std::cout << "Cache Hit - Returning Page: " << url << std::endl;
@@ -62,9 +62,6 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
     while ((current_size_ + content.size()) > max_size_) {
       // Cache too large, need to replace data until  within size requirements
       std::string remove_url = repl_policy_->RemoveReplacement();
-  #if DEBUG
-      std::cout << "Removing Page: " << remove_url << std::endl;
-  #endif
       RemoveWebPage(remove_url);
     }
 
@@ -82,9 +79,11 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
   #endif
   }
 
-
-  if (!warmup_)
-    --warmup_;
+#if DEBUG
+  PrintOccupancy();
+#endif
+  if (!warmup_period_)
+    --warmup_period_;
 
   return content;
 }
@@ -100,6 +99,10 @@ void WebPageCache::RemoveWebPage(const std::string& url) {
   for (std::multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
        entry != entries_range.second; ++entry) {
     if (entry->second.getKey() == url) {
+    #if DEBUG
+      std::cout << "Removing Page: " << url;
+      std::cout << " of size=" << entry->second.getData().size() / 1024 << "KB" << std::endl;
+    #endif
       // Remove the cache entry and adjust the new cache size
       current_size_ -= entry->second.getData().size();
       cache.erase(entry);

@@ -13,6 +13,9 @@ namespace po = boost::program_options;
 
 using namespace cachingproxy;
 
+#define KB(x) ((x) << 10)
+#define MB(x) ((x) << 20)
+
 int main(int argc, char** argv) {
   std::string host;
   int port;
@@ -41,8 +44,15 @@ int main(int argc, char** argv) {
   CachingProxyClient client(protocol);
 
   std::cout << "Connecting to server " << host << ":" << port << std::endl;
+
   try {
     transport->open();
+
+    // Initialize Cache
+    client.reset_cache();
+    client.set_cache_size(KB(1024));
+    client.set_warmup_period(0);
+
     std::string response;
     std::cout << "Calling RPC method get_url" << std::endl;
     client.get_url(response, url);

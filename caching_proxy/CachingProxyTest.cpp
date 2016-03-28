@@ -14,9 +14,15 @@ namespace po = boost::program_options;
 
 using namespace cachingproxy;
 
+#define KB(x) ((x) << 10)
+#define MB(x) ((x) << 20)
+
 int main(int argc, char** argv) {
   std::string host;
   int port;
+
+  int cache_size, warmup_period;
+
   std::string url, test_file;
   po::options_description desc("Options");
   desc.add_options()
@@ -24,6 +30,8 @@ int main(int argc, char** argv) {
           ("host", po::value<std::string>(&host)->default_value("localhost"), "Hostname")
           ("port,p", po::value<int>(&port)->default_value(9090), "Port")
           ("test_input,t", po::value<std::string>(&test_file)->default_value("../tests/top500.csv"), "Test File")
+          ("cache_size,c", po::value<int>(&cache_size)->default_value(1024), "Cache Size (KB)")
+          ("warmnup,w", po::value<int>(&warmup_period)->default_value(0), "Warmup Period")
           ;
 
   po::variables_map vm;
@@ -44,20 +52,34 @@ int main(int argc, char** argv) {
   std::cout << "Connecting to server " << host << ":" << port << std::endl;
   std::ifstream infile(test_file.c_str());
   if (infile.fail()) {
-	  std::cerr << "Error: Could not open test file " << test_file << std::endl;
-	  exit(1);
+    std::cerr << "Error: Could not open test file " << test_file << std::endl;
+    exit(1);
   }
-  while (!infile.eof()) {
-	  getline(infile, url);
+
+
   try {
     transport->open();
-    std::string response;
-    std::cout << "Calling RPC method get_url" << std::endl;
-    test.get_url(response, url);
-    std::cout << response << std::endl;
-    std::cout << "Finished!" << std::endl;
+
+    std::cout << "Test Start: " << std::endl;
+    std::cout << "Cache Size=" << cache_size/1024 << "KB ";
+    std::cout << "Warmup=" << warmup_period << std::endl;
+
+    // Initialize Cache
+    test.reset_cache();
+    test.set_cache_size(KB(cache_size));
+    test.set_warmup_period(warmup_period);
+
+    while (!infile.eof()) {
+      getline(infile, url);
+
+      std::string response;
+      std::cout << "Calling RPC method get_url" << std::endl;
+      test.get_url(response, url);
+      std::cout << response << std::endl;
+    }
+    std::cout << "Test Finished!" << std::endl;
   } catch (TException& tx) {
     std::cout << "ERROR: " << tx.what() << std::endl;
   }
-  }
+
 }
