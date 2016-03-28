@@ -5,7 +5,7 @@
 #include <curl/curl.h>
 #include <assert.h>
 
-#define DEBUG 1
+#define DEBUG 0
 
 WebPageCache::WebPageCache(int32_t max_size, const std::string& repl_policy, int32_t warmup)
         : max_size_(max_size), warmup_(warmup), current_size_(0),

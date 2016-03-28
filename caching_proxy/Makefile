@@ -10,12 +10,19 @@ SERVER_OBJECTS := \
 CLIENT_SOURCES := \
 	CachingProxyClient.cpp
 
+TEST_SOURCES := \
+	CachingProxyTest.cpp
+
 CLIENT_OBJECTS := \
 	$(BUILD_DIR)/CachingProxyClient.o
 
+TEST_OBJECTS := \
+	$(BUILD_DIR)/CachingProxyTest.o
+
 TARGETS := \
 	CachingProxyServer \
-	CachingProxyClient
+	CachingProxyClient \
+	CachingProxyTest
 
 GEN_CPP_SOURCES = \
 	gen-cpp/CachingProxy.cpp \
@@ -44,7 +51,7 @@ WEB_PAGE_CACHE_OBJECTS = \
     $(BUILD_DIR)/FifoReplPolicy.o \
     $(BUILD_DIR)/MaxSizeReplPolicy.o
 
-CPPFLAGS = -O0 -ggdb3 -std=c++11
+CPPFLAGS = -O3 -ggdb3 -std=c++11
 LDFLAGS = -lthrift -lboost_program_options
 CURL_LIBS = $(shell curl-config --libs)
 CURL_CFLAGS = $(shell curl-config --cflags)
@@ -60,6 +67,9 @@ $(BUILD_DIR)/CachingProxyServer.o : CachingProxyServer.cpp $(GEN_CPP_SOURCES)
 	$(CXX) -o $@ -c $< $(CPPFLAGS) $(CURL_CFLAGS)
 
 CachingProxyClient: $(CLIENT_OBJECTS) $(GEN_CPP_OBJECTS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+CachingProxyTest: $(TEST_OBJECTS) $(GEN_CPP_OBJECTS)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(GEN_CPP_SOURCES) : caching_proxy.thrift
