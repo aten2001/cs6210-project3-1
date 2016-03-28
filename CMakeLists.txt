@@ -24,6 +24,9 @@ set(SOURCE_FILES
         web_page_cache/FifoReplPolicy.h
 
         web_page_cache/MaxSizeReplPolicy.cpp
-        web_page_cache/MaxSizeReplPolicy.h)
+        web_page_cache/MaxSizeReplPolicy.h
+
+        web_page_cache/LruReplPolicy.cpp
+        web_page_cache/LruReplPolicy.h)
 
 add_executable(project3 ${SOURCE_FILES})

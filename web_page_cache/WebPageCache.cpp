@@ -2,6 +2,7 @@
 #include "FifoReplPolicy.h"
 #include "RandReplPolicy.h"
 #include "MaxSizeReplPolicy.h"
+#include "LruReplPolicy.h"
 #include <curl/curl.h>
 #include <assert.h>
 
@@ -16,6 +17,8 @@ WebPageCache::WebPageCache(int32_t max_size, const std::string& repl_policy, int
     repl_policy_ = new MaxSizeReplPolicy();
   } else if (repl_policy == "RAND") {
     repl_policy_ = new RandReplPolicy();
+  } else if (repl_policy == "LRU") {
+    repl_policy_ = new LruReplPolicy();
   } else {
     std::cerr << "Invalid Replacement Policy: " << repl_policy;
     assert(0);
