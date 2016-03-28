@@ -6,8 +6,6 @@
 #include <boost/program_options.hpp>
 #include <curl/curl.h>
 
-#include "CacheManager.h"
-
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
@@ -32,30 +30,6 @@ public:
   }
 
   void get_url(std::string& _return, const std::string& url) {
-    if (get_url_cached(_return, url))
-      return;
-    else {
-      get_url_curl(_return, url);
-      cache_url(_return, url);
-    }
-  }
-
-private:
-  void cache_url(const std::string& _return, const std::string& url) {
-    m_web_cache.cache_url(_return, url);
-  }
-  
-  bool get_url_cached(std::string& _return, const std::string& url) {
-    if (m_web_cache.is_url_cached(url)) {
-      std::cout << "get_url_cached: " << url << std::endl;
-      _return = m_web_cache.get_url_cached(url);
-      return true;
-    }
-
-    return false;
-  }
-  
-  void get_url_curl(std::string& _return, const std::string& url) {
     // Your implementation goes here
     std::cout << "get_url: " << url << std::endl;
     CURL *curl_handle;
@@ -99,9 +73,6 @@ private:
     /* we're done with libcurl, so clean it up */
     curl_global_cleanup();
   }
-
-private:
-  CacheManager m_web_cache;
 };
 
 int main(int argc, char** argv) {

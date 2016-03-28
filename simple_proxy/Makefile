@@ -1,12 +1,10 @@
 BUILD_DIR := build
 
 SERVER_SOURCES := \
-	SimpleProxyServer.cpp CacheManager.cpp
+	SimpleProxyServer.cpp
 
 SERVER_OBJECTS := \
-	$(BUILD_DIR)/SimpleProxyServer.o \
-	$(BUILD_DIR)/CacheManager.o \
-	$(BUILD_DIR)/WebCache.o
+	$(BUILD_DIR)/SimpleProxyServer.o
 
 CLIENT_SOURCES := \
 	SimpleProxyClient.cpp
@@ -25,15 +23,14 @@ GEN_CPP_SOURCES = \
 	gen-cpp/simple_proxy_constants.h \
 	gen-cpp/simple_proxy_types.cpp \
 	gen-cpp/simple_proxy_types.h \
-	gen-cpp/SimpleProxy_server.skeleton.cpp \
-	CacheManager.cpp WebCache.cpp
+	gen-cpp/SimpleProxy_server.skeleton.cpp
 
 GEN_CPP_OBJECTS = \
     $(BUILD_DIR)/SimpleProxy.o \
     $(BUILD_DIR)/simple_proxy_constants.o \
     $(BUILD_DIR)/simple_proxy_types.o \
 
-CPPFLAGS = -O3 -std=gnu++11
+CPPFLAGS = -O3
 LDFLAGS = -lthrift -lboost_program_options
 CURL_LIBS = $(shell curl-config --libs)
 CURL_CFLAGS = $(shell curl-config --cflags)
@@ -43,22 +40,22 @@ CURL_CFLAGS = $(shell curl-config --cflags)
 all: $(TARGETS)
 
 SimpleProxyServer: $(SERVER_OBJECTS) $(GEN_CPP_OBJECTS)
-	$(CXX) -o $@ $^ $(CPPFLAGS) $(LDFLAGS) $(CURL_LIBS)
+	g++ -o $@ $^ $(LDFLAGS) $(CURL_LIBS)
 
 $(BUILD_DIR)/SimpleProxyServer.o : SimpleProxyServer.cpp $(GEN_CPP_SOURCES)
-	$(CXX) -o $@ -c $< $(CPPFLAGS) $(CURL_CFLAGS)
+	g++ -o $@ -c $< $(CPPFLAGS) $(CURL_CFLAGS)
 
 SimpleProxyClient: $(CLIENT_OBJECTS) $(GEN_CPP_OBJECTS)
-	$(CXX) -o $@ $^ $(CPPFLAGS) $(LDFLAGS)
+	g++ -o $@ $^ $(LDFLAGS)
 
 $(GEN_CPP_SOURCES) : simple_proxy.thrift
 	thrift --gen cpp -r $<
 
 $(BUILD_DIR)/%.o : %.cpp $(GEN_CPP_SOURCES)
-	$(CXX) -o $@ -c $< $(CPPFLAGS)
+	g++ -o $@ -c $< $(CPPFLAGS)
 
 $(BUILD_DIR)/%.o : gen-cpp/%.cpp $(GEN_CPP_SOURCES)
-	$(CXX) -o $@ -c $< $(CPPFLAGS)
+	g++ -o $@ -c $< $(CPPFLAGS)
 
 $(CLIENT_OBJECTS) : | $(BUILD_DIR)
 $(SERVER_OBJECTS) : | $(BUILD_DIR)
