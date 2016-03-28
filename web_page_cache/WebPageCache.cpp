@@ -55,28 +55,30 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
   std::string content;
   downloader_.DownloadWebPage(url, content);
 
-  if (content.size() > max_size_) {
-    std::cerr << "Content too large for cache" << std::endl;
-    exit(EXIT_FAILURE);
+  if (content.size() <= max_size_) {
+    while ((current_size_ + content.size()) > max_size_) {
+      // Cache too large, need to replace data until  within size requirements
+      std::string remove_url = repl_policy_->RemoveReplacement();
+  #if DEBUG
+      std::cout << "Removing Page: " << remove_url << std::endl;
+  #endif
+      RemoveWebPage(remove_url);
+    }
+
+  #if DEBUG
+    std::cout << "Inserting Page: " << url << std::endl;
+  #endif
+    CacheEntry entry(url, content);
+
+    repl_policy_->Insert(entry);
+    current_size_ += content.size();
+    cache.insert(std::pair<size_t, CacheEntry>(hash_val, entry));
+  } else {
+  #if DEBUG
+    std::cout << "Page too large for Cache: " << url << std::endl;
+  #endif
   }
 
-  while ((current_size_ + content.size()) > max_size_) {
-    // Cache too large, need to replace data until  within size requirements
-    std::string remove_url = repl_policy_->RemoveReplacement();
-#if DEBUG
-    std::cout << "Removing Page: " << remove_url << std::endl;
-#endif
-    RemoveWebPage(remove_url);
-  }
-
-#if DEBUG
-  std::cout << "Inserting Page: " << url << std::endl;
-#endif
-  CacheEntry entry(url, content);
-
-  repl_policy_->Insert(entry);
-  current_size_ += content.size();
-  cache.insert(std::pair<size_t, CacheEntry>(hash_val, entry));
 
   if (!warmup_)
     --warmup_;
