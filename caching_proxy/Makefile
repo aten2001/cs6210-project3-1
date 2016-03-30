@@ -55,7 +55,7 @@ WEB_PAGE_CACHE_OBJECTS = \
     $(BUILD_DIR)/LruReplPolicy.o
 
 CPPFLAGS = -O3 -ggdb3 -std=c++11
-LDFLAGS = -lthrift -lboost_program_options
+LDFLAGS = -lthrift -lboost_program_options -lrt
 CURL_LIBS = $(shell curl-config --libs)
 CURL_CFLAGS = $(shell curl-config --cflags)
 
