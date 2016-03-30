@@ -53,6 +53,8 @@ public:
        field, so we provide one */
     curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 
+    /* Deal with redirects */
+    curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, true);
 #if DEBUG
     /* output progress from curl */
     curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
