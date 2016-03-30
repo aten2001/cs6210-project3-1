@@ -7,6 +7,7 @@
 #include <assert.h>
 
 #define DEBUG 0
+#define CURL_DEBUG 0
 
 WebPageCache::WebPageCache(const std::string& repl_policy, int32_t max_size, int32_t warmup)
         : max_size_(max_size), warmup_period_(warmup), current_size_(0),
@@ -141,7 +142,10 @@ bool WebPageDownloader::DownloadWebPage(const std::string& url, std::string& con
      field, so we provide one */
   curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 
-#if DEBUG
+  /* Deal with redirects */
+  curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, true);
+
+#if CURL_DEBUG
   /* output progress from curl */
   curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
 #endif

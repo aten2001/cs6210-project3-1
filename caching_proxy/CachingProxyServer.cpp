@@ -17,7 +17,7 @@ namespace po = boost::program_options;
 
 using namespace ::cachingproxy;
 
-
+#define DEBUG 0
 
 size_t WriteStringCallback(char* buf, size_t size, size_t nmemb, void* up) {
   std::string* str = (std::string*)up;
@@ -33,6 +33,9 @@ public:
   }
 
   void get_url(std::string& _return, const std::string& url) {
+#if DEBUG
+    std::cout << "get_url: " << url << std::endl;
+#endif
     _return = page_cache_->GetWebPage(url);
   }
 
@@ -75,7 +78,8 @@ int main(int argc, char** argv) {
     return EXIT_SUCCESS;
   }
 
-  std::cout << "Starting Server: Listening on Port " << port << std::endl;
+  std::cout << "Starting Server: Listening on Port " << port;
+  std::cout << " with " << repl_policy << " Cache Replacement Policy" << std::endl;
   shared_ptr<CachingProxyHandler> handler(new CachingProxyHandler(repl_policy));
   shared_ptr<TProcessor> processor(new CachingProxyProcessor(handler));
   shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
