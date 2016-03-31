@@ -41,10 +41,12 @@ public:
   }
 
   void reset_cache() override {
+    std::cout << "Clearing Cache" << std::endl;
     page_cache_->Reset();
   }
 
   void set_cache_size(const int32_t cache_size) override {
+    std::cout << "Setting Cache Size to " << (cache_size / 1024) << "KB" << std::endl;
     page_cache_->SetCacheSize(cache_size);
   }
 

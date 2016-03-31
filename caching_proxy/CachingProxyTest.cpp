@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
           ("test_input,t", po::value<std::string>(&test_file)->default_value("../tests/top500.csv"), "Test File")
           ("cache_size,c", po::value<int>(&cache_size)->default_value(1024), "Cache Size (KB)")
           ("warmnup,w", po::value<int>(&warmup_period)->default_value(0), "Warmup Period")
-          ("debug,D", po::value<bool>(&debug)->default_value(false), "Enable Debug Printouts")
+          ("debug,D", po::bool_switch(&debug)->default_value(false), "Enable Debug Printouts")
 
           ;
 
