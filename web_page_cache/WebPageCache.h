@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <sstream>
 
 class CacheEntry {
  public:
@@ -57,6 +58,8 @@ class WebPageCache {
     current_size_ = 0;
     repl_policy_->Reset();
     cache_hits_ = 0;
+    sum_cache_items_ = 0;
+    sum_cache_occupancy_ = 0;
     num_accesses_ = 0;
   }
 
@@ -70,15 +73,38 @@ class WebPageCache {
     return (double)cache_hits_ / (double)num_accesses_;
   }
 
+  double GetAvgNumCacheItems() {
+    if (num_accesses_ == 0)
+      return 0;
+    return (double)sum_cache_items_ / (double)num_accesses_;
+  }
+
+  double GetAvgCacheOccupancy() {
+    if (num_accesses_ == 0)
+      return 0;
+    return sum_cache_occupancy_ / num_accesses_;
+  }
+
   void PrintOccupancy() {
     std::cout << "Cache: " << cache.size() << " items, ";
     std::cout << (current_size_ / 1024) << "/" << (max_size_ / 1024) << "KB" << std::endl;
+  }
+
+  std::string GetCacheStats() {
+    std::ostringstream stats_stream;
+    stats_stream << "Num Accesses: " << num_accesses_ << std::endl;
+    stats_stream << "Hit Rate: " << GetHitRate() << std::endl;
+    stats_stream << "Avg. Num Items: " << GetAvgNumCacheItems() << std::endl;
+    stats_stream << "Avg. Cache Occupancy: " << GetAvgCacheOccupancy();
+    return stats_stream.str();
   }
 
  private:
   int32_t current_size_;
   int32_t max_size_;
   int32_t cache_hits_;
+  int64_t sum_cache_items_;
+  double sum_cache_occupancy_;
   int32_t num_accesses_;
   int32_t warmup_period_;
   std::hash<std::string> hash_fn_;

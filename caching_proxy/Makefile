@@ -45,8 +45,6 @@ WEB_PAGE_CACHE_SOURCES = \
     $(PROJECT_ROOT_DIR)/web_page_cache/MaxSizeReplPolicy.cpp \
     $(PROJECT_ROOT_DIR)/web_page_cache/LruReplPolicy.cpp
 
-
-
 WEB_PAGE_CACHE_OBJECTS = \
     $(BUILD_DIR)/WebPageCache.o \
     $(BUILD_DIR)/RandReplPolicy.o \
@@ -86,8 +84,6 @@ $(BUILD_DIR)/%.o : %.cpp $(GEN_CPP_SOURCES)
 
 $(BUILD_DIR)/%.o : gen-cpp/%.cpp $(GEN_CPP_SOURCES)
 	$(CXX) -o $@ -c $< $(CPPFLAGS)
-
-
 
 $(CLIENT_OBJECTS) : | $(BUILD_DIR)
 $(SERVER_OBJECTS) : | $(BUILD_DIR)

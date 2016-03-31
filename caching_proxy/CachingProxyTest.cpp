@@ -73,11 +73,11 @@ int main(int argc, char** argv) {
 
     std::string response;
 
-    for (int i = 0; i < warmup_period; i++) {
+    for (int i = 1; i <= warmup_period; i++) {
       getline(infile, url);
-    #if DEBUG
-      std::cout << "get_url: " << url << std::endl;
-    #endif
+#if DEBUG
+      std::cout << "get_url warmup call " << i << ": " << url << std::endl;
+#endif
       test.get_url(response, url);
     }
 
@@ -87,21 +87,23 @@ int main(int argc, char** argv) {
     start_watch(&before);
     while (!infile.eof()) {
       getline(infile, url);
-    #if DEBUG
-      std::cout << "get_url: " << url << " " << url.size() << std::endl;
-    #endif
+
       if (url.size()) {
-        test.get_url(response, url);
         num_calls++;
+#if DEBUG
+        std::cout << "get_url call " << num_calls << ": " << url << " " << std::endl;
+#endif
+        test.get_url(response, url);
       }
     }
     stop_watch(&after);
 
-    double hit_rate = test.get_hit_rate();
+    std::string stats;
+    test.get_cache_stats(stats);
     transport->close();
+
     std::cout << "Test Finished!" << std::endl;
-    std::cout << "Num Calls: " << num_calls << std::endl;
-    std::cout << "Hit Rate: " << hit_rate << std::endl;
+    std::cout << stats << std::endl;
     std::cout << "Completion Time: " << get_timer_diff(&before, &after) << std::endl;
   } catch (TException& tx) {
     std::cout << "ERROR: " << tx.what() << std::endl;

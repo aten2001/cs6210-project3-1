@@ -28,31 +28,32 @@ size_t WriteStringCallback(char* buf, size_t size, size_t nmemb, void* up) {
 
 class CachingProxyHandler : virtual public CachingProxyIf {
 public:
+
   CachingProxyHandler(const std::string& repl_policy) {
     page_cache_ = new WebPageCache(repl_policy);
   }
 
-  void get_url(std::string& _return, const std::string& url) {
+  void get_url(std::string& _return, const std::string& url) override {
 #if DEBUG
     std::cout << "get_url: " << url << std::endl;
 #endif
     _return = page_cache_->GetWebPage(url);
   }
 
-  void reset_cache() {
+  void reset_cache() override {
     page_cache_->Reset();
   }
 
-  void set_cache_size(const int32_t cache_size) {
+  void set_cache_size(const int32_t cache_size) override {
     page_cache_->SetCacheSize(cache_size);
   }
 
-  void set_warmup_period(const int32_t period) {
+  void set_warmup_period(const int32_t period) override {
     page_cache_->SetWarmupPeriod(period);
   }
 
-  double get_hit_rate() {
-    return page_cache_->GetHitRate();
+  void get_cache_stats(std::string& _return) override {
+    _return = page_cache_->GetCacheStats();
   }
 
  private:

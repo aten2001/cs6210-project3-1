@@ -9,6 +9,6 @@ service CachingProxy {
 
   void set_warmup_period(1:i32 period)
 
-  double get_hit_rate()
+  string get_cache_stats()
 
 }

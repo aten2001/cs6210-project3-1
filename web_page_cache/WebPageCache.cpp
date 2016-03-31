@@ -11,7 +11,7 @@
 
 WebPageCache::WebPageCache(const std::string& repl_policy, int32_t max_size, int32_t warmup)
         : max_size_(max_size), warmup_period_(warmup), current_size_(0),
-          cache_hits_(0), num_accesses_(0) {
+          cache_hits_(0), sum_cache_items_(0), sum_cache_occupancy_(0), num_accesses_(0) {
   if (repl_policy == "FIFO") {
     repl_policy_ = new FifoReplPolicy();
   } else if (repl_policy == "MAXS") {
@@ -21,7 +21,7 @@ WebPageCache::WebPageCache(const std::string& repl_policy, int32_t max_size, int
   } else if (repl_policy == "LRU") {
     repl_policy_ = new LruReplPolicy();
   } else {
-    std::cerr << "Invalid Replacement Policy: " << repl_policy;
+    std::cerr << "Invalid Replacement Policy: " << repl_policy << std::endl;
     assert(0);
   }
 }
@@ -45,12 +45,18 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
        entry != entries_range.second; ++entry) {
     CacheEntry& cache_entry = entry->second;
     if (cache_entry.getKey() == url) {
-      if (!warmup_period_)
-        cache_hits_++;
-    #if DEBUG
-      std::cout << "Cache Hit - Returning Page: " << url << std::endl;
-    #endif
       repl_policy_->Touch(cache_entry);
+
+      if (warmup_period_) {
+        --warmup_period_;
+      } else {
+        cache_hits_++;
+        sum_cache_items_ += cache.size();
+        sum_cache_occupancy_ += (double) current_size_ / (double) max_size_;
+#if DEBUG
+        std::cout << "Cache Hit - Returning Page: " << url << std::endl;
+#endif
+      }
       return cache_entry.getData();
     }
   }
@@ -66,25 +72,29 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
       RemoveWebPage(remove_url);
     }
 
-  #if DEBUG
+#if DEBUG
     std::cout << "Inserting Page: " << url << std::endl;
-  #endif
+#endif
     CacheEntry entry(url, content);
 
     repl_policy_->Insert(entry);
     current_size_ += content.size();
     cache.insert(std::pair<size_t, CacheEntry>(hash_val, entry));
   } else {
-  #if DEBUG
+#if DEBUG
     std::cout << "Page too large for Cache: " << url << std::endl;
-  #endif
+#endif
   }
 
 #if DEBUG
   PrintOccupancy();
 #endif
-  if (!warmup_period_)
+  if (warmup_period_) {
     --warmup_period_;
+  } else {
+    sum_cache_items_ += cache.size();
+    sum_cache_occupancy_ += (double) current_size_ / (double) max_size_;
+  }
 
   return content;
 }
@@ -100,10 +110,10 @@ void WebPageCache::RemoveWebPage(const std::string& url) {
   for (std::multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
        entry != entries_range.second; ++entry) {
     if (entry->second.getKey() == url) {
-    #if DEBUG
+#if DEBUG
       std::cout << "Removing Page: " << url;
       std::cout << " of size=" << entry->second.getData().size() / 1024 << "KB" << std::endl;
-    #endif
+#endif
       // Remove the cache entry and adjust the new cache size
       current_size_ -= entry->second.getData().size();
       cache.erase(entry);
@@ -155,7 +165,8 @@ bool WebPageDownloader::DownloadWebPage(const std::string& url, std::string& con
 
   /* check for errors */
   if (res != CURLE_OK) {
-    fprintf(stderr, "curl_easy_perform() failed: %s\n",
+    fprintf(stderr, "curl_easy_perform() failed for url %s: %s\n",
+            url.c_str(),
             curl_easy_strerror(res));
   }
 
