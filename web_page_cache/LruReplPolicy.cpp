@@ -9,7 +9,7 @@ void LruReplPolicy::Touch(const CacheEntry& entry) {
   lru_list_.splice(lru_list_.end(), lru_list_, it);
 }
 
-std::string LruReplPolicy::RemoveReplacement() {
+std::string LruReplPolicy::GetReplacement(int32_t insert_content_size, int32_t current_cache_size, int32_t max_cache_size) {
   std::string key = lru_list_.front();
   lru_list_.pop_front();
   return key;

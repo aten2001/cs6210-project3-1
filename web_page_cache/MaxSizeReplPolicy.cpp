@@ -8,7 +8,7 @@ void MaxSizeReplPolicy::Touch(const CacheEntry& entry) {
 
 }
 
-std::string MaxSizeReplPolicy::RemoveReplacement() {
+std::string MaxSizeReplPolicy::GetReplacement(int32_t insert_content_size, int32_t current_cache_size, int32_t max_cache_size) {
   std::string key = prio_queue_.top().getKey();
   prio_queue_.pop();
   return key;

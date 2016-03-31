@@ -36,7 +36,7 @@ class MaxSizeReplPolicy : public CacheReplPolicy {
 
   void Insert(const CacheEntry& entry);
   void Touch(const CacheEntry& entry);
-  std::string RemoveReplacement();
+  std::string GetReplacement(int32_t insert_content_size, int32_t current_cache_size, int32_t max_cache_size);
   void Reset();
 
  private:

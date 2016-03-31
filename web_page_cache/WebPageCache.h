@@ -37,7 +37,7 @@ class CacheReplPolicy {
   virtual ~CacheReplPolicy() {};
   virtual void Insert(const CacheEntry& entry) = 0;
   virtual void Touch(const CacheEntry& entry) = 0;
-  virtual std::string RemoveReplacement() = 0;
+  virtual std::string GetReplacement(int32_t insert_content_size, int32_t current_cache_size, int32_t max_cache_size) = 0;
   virtual void Reset() = 0;
 };
 
