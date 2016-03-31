@@ -36,18 +36,72 @@ def get_webpage_list(args):
     with open(args.webpage_list_file) as page_file:
         csvreader = csv.DictReader(page_file)
         for line in csvreader:
-            webpage_list.append(WebPage(url=line['url'],size=line['size']))
+            webpage_list.append(WebPage(url=line['url'],size=int(line['size'])))
     return webpage_list
 
 
-def gen_random_test(args, webpages):
+def gen_random_test(args, webpages, output_filename):
     if 0 < args.webpage_limit < len(webpages):
         webpages = webpages[:args.webpage_limit]
+
+    working_set = {}
+    with open(output_filename, 'w') as output_file:
+        for i in range(args.test_length):
+            pos = random.randint(0, len(webpages)-1)
+            page = webpages[pos]
+            output_file.write('%s\n' % page.url)
+            working_set[page.url] = page.size
+    print('Working Set Size: %d' % (sum(working_set.values())))
+    print('Number of Unique Pages: %d' % len(working_set))
+
+
+def gen_freq_test(args, webpages, output_filename):
+    if 0 < args.webpage_limit < len(webpages):
+        webpages = webpages[:args.webpage_limit]
+
+    probs = [.6, .25, .1, .05]
+    cumsum = [sum(probs[:x]) for x in range(1, len(probs)+1)]
+    limits = [10, 20, 25]
+    page_distr = [[]]*len(probs)
+    for i in range(3):
+        page_distr[i] = webpages[sum(limits[:i]):sum(limits[:i+1])]
+        assert len(page_distr[i]) == limits[i]
+    page_distr[3] = webpages[sum(limits):]
+    assert len(page_distr) > 0
+
+    working_set = {}
+    with open(output_filename, 'w') as output_file:
+        for i in range(args.test_length):
+            p = random.random()
+            index = 0
+            while p > cumsum[index]:
+                index += 1
+
+            subset = page_distr[index]
+            assert len(subset) > 0
+            pos = random.randint(0, len(subset)-1)
+            page = subset[pos]
+            output_file.write('%s\n' % page.url)
+            working_set[page.url] = page.size
+    print('Working Set Size: %d' % (sum(working_set.values())))
+    print('Number of Unique Pages: %d' % len(working_set))
+
+
+def gen_size_test(args, webpages, output_filename):
+    if 0 < args.webpage_limit < len(webpages):
+        webpages = webpages[:args.webpage_limit]
+
+    sorted(webpages, key=lambda x: x.size)
+    gen_freq_test(args, webpages, output_filename)
+
+
+def gen_test(args):
+    webpages = get_webpage_list(args)
 
     if args.output_file:
         output_filename = args.output_file
     else:
-        output_filename = 'random_%d.txt' % args.test_length
+        output_filename = '%s_%d.txt' % (args.test_type, args.test_length)
         if os.path.exists(output_filename):
             print("Default output file \"%s\" already exists" % output_filename)
             overwrite = raw_input("Overwrite existing file [Y/N]: ")
@@ -60,26 +114,16 @@ def gen_random_test(args, webpages):
                 print("Invalid input")
                 return
 
-    with open(output_filename, 'w') as output_file:
-        for i in range(args.test_length):
-            pos = random.randint(0, len(webpages)-1)
-            output_file.write('%s\n' % webpages[pos].url)
+    if args.test_type == 'random':
+        gen_random_test(args, webpages, output_filename)
+    elif args.test_type == 'freq':
+        gen_freq_test(args, webpages, output_filename)
+    elif args.test_type == 'size':
+        gen_size_test(args, webpages, output_filename)
     print('Test Created: %s' % output_filename)
 
 
-def gen_test(args):
-    webpages = get_webpage_list(args)
-
-
-    if args.test_type == 'random':
-        gen_random_test(args, webpages)
-    elif args.test_type == 'freq':
-        raise NotImplementedError
-    elif args.test_type == 'size':
-        raise NotImplementedError
-
-
 if __name__ == "__main__":
-    args = parse_args()
-    gen_test(args)
+    command_args = parse_args()
+    gen_test(command_args)
 
