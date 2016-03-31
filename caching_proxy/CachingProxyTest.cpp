@@ -24,6 +24,7 @@ int main(int argc, char** argv) {
   int port;
 
   int cache_size, warmup_period;
+  bool debug;
 
   std::string url, test_file;
   po::options_description desc("Options");
@@ -34,6 +35,8 @@ int main(int argc, char** argv) {
           ("test_input,t", po::value<std::string>(&test_file)->default_value("../tests/top500.csv"), "Test File")
           ("cache_size,c", po::value<int>(&cache_size)->default_value(1024), "Cache Size (KB)")
           ("warmnup,w", po::value<int>(&warmup_period)->default_value(0), "Warmup Period")
+          ("debug,D", po::value<bool>(&debug)->default_value(false), "Enable Debug Printouts")
+
           ;
 
   po::variables_map vm;
@@ -75,9 +78,10 @@ int main(int argc, char** argv) {
 
     for (int i = 1; i <= warmup_period; i++) {
       getline(infile, url);
-#if DEBUG
-      std::cout << "get_url warmup call " << i << ": " << url << std::endl;
-#endif
+      if (debug) {
+        std::cout << "get_url warmup call " << i << ": " << url << std::endl;
+      }
+
       test.get_url(response, url);
     }
 
@@ -90,9 +94,9 @@ int main(int argc, char** argv) {
 
       if (url.size()) {
         num_calls++;
-#if DEBUG
-        std::cout << "get_url call " << num_calls << ": " << url << " " << std::endl;
-#endif
+        if (debug) {
+          std::cout << "get_url call " << num_calls << ": " << url << " " << std::endl;
+        }
         test.get_url(response, url);
       }
     }
