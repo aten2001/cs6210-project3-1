@@ -21,8 +21,11 @@ def parse_args():
 
     parser.add_argument('test_length', type=int, help='Length of test file to generate')
 
-    parser.add_argument('--webpage_list_file', type=str, required=False, default='top500.csv',
+    parser.add_argument('--webpage_list_file', type=str, required=False, default='similarweb_list.csv',
                         help='User trace file')
+
+    parser.add_argument('--webpage_limit', type=int, required=False, default=0,
+                        help='Limit to top N pages')
 
     parser.add_argument('--output_file', type=str, required=False, help='Name of output test file')
     return parser.parse_args()
@@ -31,19 +34,16 @@ def parse_args():
 def get_webpage_list(args):
     webpage_list = []
     with open(args.webpage_list_file) as page_file:
-        csvreader = csv.reader(page_file)
+        csvreader = csv.DictReader(page_file)
         for line in csvreader:
-            if len(line) == 1:
-                webpage_list.append(WebPage(line[0]))
-            elif len(line) == 2:
-                webpage_list.append(WebPage(line[0], line[1]))
-            elif len(line) == 3:
-                webpage_list.append(WebPage(line[0], line[1], line[2]))
-
+            webpage_list.append(WebPage(url=line['url'],size=line['size']))
     return webpage_list
 
 
 def gen_random_test(args, webpages):
+    if 0 < args.webpage_limit < len(webpages):
+        webpages = webpages[:args.webpage_limit]
+
     if args.output_file:
         output_filename = args.output_file
     else:
@@ -69,6 +69,8 @@ def gen_random_test(args, webpages):
 
 def gen_test(args):
     webpages = get_webpage_list(args)
+
+
     if args.test_type == 'random':
         gen_random_test(args, webpages)
     elif args.test_type == 'freq':
