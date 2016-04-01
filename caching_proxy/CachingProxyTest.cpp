@@ -21,6 +21,7 @@ using namespace cachingproxy;
 
 int main(int argc, char** argv) {
   std::string host;
+  std::string repl_policy;
   int port;
 
   int cache_size, warmup_period;
@@ -35,6 +36,7 @@ int main(int argc, char** argv) {
           ("test_input,t", po::value<std::string>(&test_file)->default_value("../tests/top500.csv"), "Test File")
           ("cache_size,c", po::value<int>(&cache_size)->default_value(1024), "Cache Size (KB)")
           ("warmnup,w", po::value<int>(&warmup_period)->default_value(0), "Warmup Period")
+          ("repl_policy,r", po::value<std::string>(&repl_policy)->default_value("FIFO"), "Cache Replacement Policy")
           ("debug,D", po::bool_switch(&debug)->default_value(false), "Enable Debug Printouts")
 
           ;
@@ -70,6 +72,7 @@ int main(int argc, char** argv) {
     std::cout << "Warmup=" << warmup_period << std::endl;
 
     // Initialize Cache
+    test.set_cache_policy(repl_policy);
     test.reset_cache();
     test.set_cache_size(KB(cache_size));
     test.set_warmup_period(warmup_period);

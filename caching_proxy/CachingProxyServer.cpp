@@ -40,6 +40,15 @@ public:
     _return = page_cache_->GetWebPage(url);
   }
 
+
+  void set_cache_policy(const std::string& policy) override {
+    if (page_cache_)
+      delete page_cache_;
+
+    std::cout << "Creating cache with policy: " << policy << std::endl;
+    page_cache_ = new WebPageCache(policy);
+  }
+
   void reset_cache() override {
     std::cout << "Clearing Cache" << std::endl;
     page_cache_->Reset();
@@ -93,3 +102,4 @@ int main(int argc, char** argv) {
   server.serve();
   return EXIT_SUCCESS;
 }
+
