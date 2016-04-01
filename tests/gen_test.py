@@ -16,7 +16,7 @@ class WebPage:
 def parse_args():
     parser = argparse.ArgumentParser(description='Generate webpage test file')
 
-    parser.add_argument('test_type', type=str, choices=('random', 'freq', 'size'),
+    parser.add_argument('test_type', type=str, choices=('random', 'freq', 'size', 'revsize'),
                         help='Type of test file to generate')
 
     parser.add_argument('test_length', type=int, help='Length of test file to generate')
@@ -93,6 +93,13 @@ def gen_size_test(args, webpages, output_filename):
 
     sorted(webpages, key=lambda x: x.size)
     gen_freq_test(args, webpages, output_filename)
+    
+def gen_large_size_test(args, webpages, output_filename):
+    if 0 < args.webpage_limit < len(webpages):
+        webpages = webpages[:args.webpage_limit]
+
+    sorted(webpages, key=lambda x: x.size, reverse=True)
+    gen_freq_test(args, webpages, output_filename)
 
 
 def gen_test(args):
@@ -120,6 +127,8 @@ def gen_test(args):
         gen_freq_test(args, webpages, output_filename)
     elif args.test_type == 'size':
         gen_size_test(args, webpages, output_filename)
+    elif args.test_type == 'revsize':
+        gen_large_size_test(args, webpages, output_filename)
     print('Test Created: %s' % output_filename)
 
 
