@@ -1,0 +1,256 @@
+RAND
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.223
+Avg. Num Items: 6.165
+Avg. Cache Occupancy: 0.832228
+Completion Time: 476.858
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.4
+Avg. Num Items: 11.646
+Avg. Cache Occupancy: 0.901881
+Completion Time: 394.506
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=4096KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.611
+Avg. Num Items: 23.459
+Avg. Cache Occupancy: 0.948939
+Completion Time: 240.648
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=8192KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.842
+Avg. Num Items: 45.068
+Avg. Cache Occupancy: 0.959737
+Completion Time: 114.429
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=12288KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.949
+Avg. Num Items: 63.3
+Avg. Cache Occupancy: 0.873887
+Completion Time: 35.4382
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=16384KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.66939
+Completion Time: 27.9003
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=20480KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.538139
+Completion Time: 30.9626
+FIFO
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.208
+Avg. Num Items: 5.957
+Avg. Cache Occupancy: 0.834618
+Completion Time: 619.018
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.365
+Avg. Num Items: 11.477
+Avg. Cache Occupancy: 0.907603
+Completion Time: 390.152
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=4096KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.613
+Avg. Num Items: 23.455
+Avg. Cache Occupancy: 0.955021
+Completion Time: 248.266
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=8192KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.841
+Avg. Num Items: 45.377
+Avg. Cache Occupancy: 0.960263
+Completion Time: 225.548
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=12288KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.939
+Avg. Num Items: 63.025
+Avg. Cache Occupancy: 0.875258
+Completion Time: 38.9858
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=16384KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.677805
+Completion Time: 24.3982
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=20480KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.538669
+Completion Time: 25.6005
+LRU
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.218
+Avg. Num Items: 5.989
+Avg. Cache Occupancy: 0.832698
+Completion Time: 495.758
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.413
+Avg. Num Items: 11.603
+Avg. Cache Occupancy: 0.915292
+Completion Time: 362.981
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=4096KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.682
+Avg. Num Items: 23.191
+Avg. Cache Occupancy: 0.95526
+Completion Time: 218.957
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=8192KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.898
+Avg. Num Items: 46.19
+Avg. Cache Occupancy: 0.969498
+Completion Time: 83.6293
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=12288KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.95
+Avg. Num Items: 62.488
+Avg. Cache Occupancy: 0.871588
+Completion Time: 29.0825
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=16384KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.672271
+Completion Time: 29.9242
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=20480KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.536299
+Completion Time: 25.5838
+MAXS
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.408
+Avg. Num Items: 18.029
+Avg. Cache Occupancy: 0.818056
+Completion Time: 402.122
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.552
+Avg. Num Items: 32.383
+Avg. Cache Occupancy: 0.905019
+Completion Time: 334.1
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=4096KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.729
+Avg. Num Items: 46.722
+Avg. Cache Occupancy: 0.946933
+Completion Time: 252.216
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=8192KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.902
+Avg. Num Items: 58.973
+Avg. Cache Occupancy: 0.951498
+Completion Time: 89.9343
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=12288KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.954
+Avg. Num Items: 63.968
+Avg. Cache Occupancy: 0.865757
+Completion Time: 28.9561
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=16384KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.667337
+Completion Time: 26.7788
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=20480KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.957
+Avg. Num Items: 64.459
+Avg. Cache Occupancy: 0.55228
+Completion Time: 25.9666
