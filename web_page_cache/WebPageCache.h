@@ -2,7 +2,7 @@
 #define PROJECT3_WEBPAGECACHE_H
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <iostream>
 #include <sstream>
 
@@ -108,7 +108,7 @@ class WebPageCache {
   int32_t num_accesses_;
   int32_t warmup_period_;
   std::hash<std::string> hash_fn_;
-  std::multimap<size_t, CacheEntry> cache;
+  std::unordered_multimap<size_t, CacheEntry> cache;
   CacheReplPolicy* repl_policy_;
   WebPageDownloader downloader_;
 

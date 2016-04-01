@@ -37,11 +37,11 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
   size_t hash_val = get_hash(url); // Hash the url
 
   // Identify the cache entries for the hashed value
-  std::pair<std::multimap<size_t, CacheEntry>::iterator, std::multimap<size_t, CacheEntry>::iterator> entries_range;
+  std::pair<std::unordered_multimap<size_t, CacheEntry>::iterator, std::unordered_multimap<size_t, CacheEntry>::iterator> entries_range;
   entries_range = cache.equal_range(hash_val);
 
   // Identify if there is an entry whose key matches the URL
-  for (std::multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
+  for (std::unordered_multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
        entry != entries_range.second; ++entry) {
     CacheEntry& cache_entry = entry->second;
     if (cache_entry.getKey() == url) {
@@ -103,11 +103,11 @@ void WebPageCache::RemoveWebPage(const std::string& url) {
   size_t hash_val = get_hash(url); // Hash the url
 
   // Identify the cache entries for the hashed value
-  std::pair<std::multimap<size_t, CacheEntry>::iterator, std::multimap<size_t, CacheEntry>::iterator> entries_range;
+  std::pair<std::unordered_multimap<size_t, CacheEntry>::iterator, std::unordered_multimap<size_t, CacheEntry>::iterator> entries_range;
   entries_range = cache.equal_range(hash_val);
 
   // Identify if there is an entry whose key matches the URL
-  for (std::multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
+  for (std::unordered_multimap<size_t, CacheEntry>::iterator entry = entries_range.first;
        entry != entries_range.second; ++entry) {
     if (entry->second.getKey() == url) {
 #if DEBUG
