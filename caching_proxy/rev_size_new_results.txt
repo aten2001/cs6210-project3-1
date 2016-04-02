@@ -1,0 +1,221 @@
+RAND
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.19
+Avg. Num Items: 5.615
+Avg. Cache Occupancy: 0.818844
+Completion Time: 549.502
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.387
+Avg. Num Items: 11.8
+Avg. Cache Occupancy: 0.913571
+Completion Time: 412.076
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=4096KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.56
+Avg. Num Items: 22.625
+Avg. Cache Occupancy: 0.954584
+Completion Time: 431.69
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=8192KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.835
+Avg. Num Items: 48.344
+Avg. Cache Occupancy: 0.959361
+Completion Time: 109.366
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=12288KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.94
+Avg. Num Items: 64.823
+Avg. Cache Occupancy: 0.866678
+Completion Time: 47.747
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=16384KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.952
+Avg. Num Items: 67.086
+Avg. Cache Occupancy: 0.669119
+Completion Time: 27.9389
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=20480KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.952
+Avg. Num Items: 67.086
+Avg. Cache Occupancy: 0.531091
+Completion Time: 28.4623
+FIFO
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.209
+Avg. Num Items: 5.854
+Avg. Cache Occupancy: 0.819647
+Completion Time: 500.131
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.355
+Avg. Num Items: 11.768
+Avg. Cache Occupancy: 0.915209
+Completion Time: 424.619
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=4096KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.569
+Avg. Num Items: 23.392
+Avg. Cache Occupancy: 0.954186
+Completion Time: 298.396
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=8192KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.857
+Avg. Num Items: 49.079
+Avg. Cache Occupancy: 0.956212
+Completion Time: 229.196
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=12288KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.926
+Avg. Num Items: 64.93
+Avg. Cache Occupancy: 0.866357
+Completion Time: 46.6798
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=16384KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.952
+Avg. Num Items: 67.086
+Avg. Cache Occupancy: 0.665994
+Completion Time: 155.907
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=20480KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.952
+Avg. Num Items: 67.086
+Avg. Cache Occupancy: 0.530888
+Completion Time: 30.8732
+LRU
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.213
+Avg. Num Items: 5.768
+Avg. Cache Occupancy: 0.81982
+Completion Time: 514.865
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.385
+Avg. Num Items: 11.599
+Avg. Cache Occupancy: 0.911948
+Completion Time: 408.162
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=4096KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.625
+Avg. Num Items: 22.047
+Avg. Cache Occupancy: 0.953491
+Completion Time: 261.551
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=8192KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.863
+Avg. Num Items: 45.32
+Avg. Cache Occupancy: 0.963645
+Completion Time: 90.9919
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=12288KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.948
+Avg. Num Items: 65.156
+Avg. Cache Occupancy: 0.862409
+Completion Time: 32.5085
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=16384KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.952
+Avg. Num Items: 67.086
+Avg. Cache Occupancy: 0.66795
+Completion Time: 33.0954
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=20480KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.952
+Avg. Num Items: 67.086
+Avg. Cache Occupancy: 0.530307
+Completion Time: 28.9172
+MAXS
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=1024KB Warmup=100
+Test Finished!
+Num Accesses: 1000
+Hit Rate: 0.387
+Avg. Num Items: 18.698
+Avg. Cache Occupancy: 0.822769
+Completion Time: 432.874
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Test Start: 
+Cache Size=2048KB Warmup=100
+ERROR: No more data to read.
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Thrift: Fri Apr  1 21:33:19 2016 TSocket::open() connect() <Host: starlotus.cc.gt.atl.ga.us Port: 9100>Connection refused
+ERROR: connect() failed: Connection refused
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Thrift: Fri Apr  1 21:33:19 2016 TSocket::open() connect() <Host: starlotus.cc.gt.atl.ga.us Port: 9100>Connection refused
+ERROR: connect() failed: Connection refused
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Thrift: Fri Apr  1 21:33:19 2016 TSocket::open() connect() <Host: starlotus.cc.gt.atl.ga.us Port: 9100>Connection refused
+ERROR: connect() failed: Connection refused
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Thrift: Fri Apr  1 21:33:19 2016 TSocket::open() connect() <Host: starlotus.cc.gt.atl.ga.us Port: 9100>Connection refused
+ERROR: connect() failed: Connection refused
+Connecting to server starlotus.cc.gt.atl.ga.us:9100
+Thrift: Fri Apr  1 21:33:19 2016 TSocket::open() connect() <Host: starlotus.cc.gt.atl.ga.us Port: 9100>Connection refused
+ERROR: connect() failed: Connection refused
