@@ -65,8 +65,8 @@ const std::string WebPageCache::GetWebPage(const std::string& url) {
   std::string content;
   downloader_.DownloadWebPage(url, content);
 
-  if ((int)content.size() <= max_size_) {
-    while ((current_size_ + content.size()) > max_size_) {
+  if ((int32_t)content.size() <= max_size_) {
+    while ((current_size_ + (int32_t)content.size()) > max_size_) {
       // Cache too large, need to replace data until  within size requirements
       std::string remove_url = repl_policy_->GetReplacement(0, 0, 0);
       RemoveWebPage(remove_url);
