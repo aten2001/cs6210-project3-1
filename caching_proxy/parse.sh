@@ -1,6 +1,6 @@
 #!/bin/bash
 
-workloads=( random size )
+workloads=( rev_size_new )
 for workload in "${workloads[@]}"
 do
     grep Items ${workload}_results.txt | awk '{ print $4; }' | xargs -n7 >> ${workload}_pages.txt
